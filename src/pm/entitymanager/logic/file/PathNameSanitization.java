@@ -9,8 +9,9 @@ package pm.entitymanager.logic.file;
 public class PathNameSanitization {
     private String userPath=" ";
     private PathNameSanitization(){} ;
-    protected PathNameSanitization(String rootChildName) {
-        this.userPath=rootChildName;
+    protected PathNameSanitization(String userPath) {
+        this.userPath=userPath;
+        System.out.println("Entered");
     }
     protected String getDrive() {
         return(getOnlyLetter()+":"+"\\");
@@ -19,7 +20,13 @@ public class PathNameSanitization {
         return(this.userPath);
     }
     protected String getOnlyLetter() {
-        return(this.userPath.substring(0, 1));
+        String driveLetter = this.userPath.substring(0, 1).toUpperCase();
+        System.out.println("Entered");
+        System.out.printf("ss\n");
+     //   if(Character.isLowerCase(driveLetter.charAt(0))) return(driveLetter.toUpperCase());
+    //    else return(this.userPath.substring(0, 1));
+      //  driveLetter = driveLetter.toUpperCase();
+        return(userPath.substring(0, 1).toUpperCase());
     }
     protected String getFullPath(String path) {
         userPath+=path;
@@ -27,5 +34,6 @@ public class PathNameSanitization {
     }
     protected String getFullPath() {        
         return(userPath);
-    }    
+    }
+    
 }
