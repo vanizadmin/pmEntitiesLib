@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import pm.entitymanager.logic.EntityNotFolderishException;
+import pm.entitymanager.logic.LogicFacade;
 
 /**
  *
@@ -62,8 +63,13 @@ public class RootChild extends AbstractFile {
         isRootDirWritable();
     }
     @Override
-    protected List<AbstractFile> getAllChildren() throws EntityNotFolderishException {
+    public List<AbstractFile> getAllChildren() throws EntityNotFolderishException {
         children=getContents(file);
         return (children);
     }   
+
+    @Override
+    public LogicFacade FileLogicFacade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

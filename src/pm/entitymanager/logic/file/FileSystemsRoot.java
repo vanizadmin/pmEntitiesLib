@@ -11,6 +11,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import pm.entitymanager.logic.LogicFacade;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.util.List;
 public class FileSystemsRoot extends AbstractFile
 {
     private List<AbstractFile> children;
-    protected FileSystemsRoot() throws IOException
+    public FileSystemsRoot() throws IOException
     {
         super("",null);
         super.setAlias("ParentOfRootDirs");
@@ -36,7 +37,7 @@ public class FileSystemsRoot extends AbstractFile
         for (Path fileSystem : fileSystems) children.add(new RootChild(fileSystem, this));
     }
     @Override
-    protected List<AbstractFile> getAllChildren()
+    public List<AbstractFile> getAllChildren()
     {
         return children;
     }
@@ -46,6 +47,11 @@ public class FileSystemsRoot extends AbstractFile
     }
     @Override
     protected String getFullName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LogicFacade FileLogicFacade() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

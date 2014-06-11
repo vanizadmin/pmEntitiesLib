@@ -12,5 +12,5 @@ package pm.entitymanager.logic;
  */
 public interface EntityInterface
 {
-    
+    public LogicFacade FileLogicFacade();
 }

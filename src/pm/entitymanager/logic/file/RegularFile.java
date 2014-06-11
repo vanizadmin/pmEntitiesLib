@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
+import pm.entitymanager.logic.LogicFacade;
 
 /**
  *
@@ -34,7 +35,7 @@ public class RegularFile extends AbstractFile
         return (Files.isRegularFile(file));
     }
     @Override
-    protected List<AbstractFile> getAllChildren() throws EntityNotFolderishException
+    public List<AbstractFile> getAllChildren() throws EntityNotFolderishException
     {
         throw new EntityNotFolderishException();
     }
@@ -46,4 +47,9 @@ public class RegularFile extends AbstractFile
     protected String getFullName() {
         return(getName());
     }    
+
+    @Override
+    public LogicFacade FileLogicFacade() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

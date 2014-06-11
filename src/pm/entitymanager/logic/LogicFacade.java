@@ -13,8 +13,7 @@ import java.util.Collection;
  * @author ToNio
  */
 public interface LogicFacade
-{
-    
+{    
 public EntityInterface getRootEntity();
 public String getEntitySize( EntityInterface entity);
 public String getEntityLastModified(EntityInterface entity );
@@ -28,6 +27,5 @@ public void cut( EntityInterface entity);
 public void copy( EntityInterface entity);
 public void paste(EntityInterface entity, String newName );
 public void addEntityChangeListener(EntityChangedListener listener);
-public void removeEntityChangeListener(EntityChangedListener listener);
-    
+public void removeEntityChangeListener(EntityChangedListener listener);    
 }

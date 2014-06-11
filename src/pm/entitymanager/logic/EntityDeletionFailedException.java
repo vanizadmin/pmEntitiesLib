@@ -18,7 +18,8 @@ public class EntityDeletionFailedException extends Exception
     
     public EntityDeletionFailedException( EntityInterface entity, String reason)
     {
-        
+        this.entity=entity;
+        this.reason=reason;
     }
     
     public EntityInterface getEntity()

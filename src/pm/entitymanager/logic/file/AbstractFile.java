@@ -45,7 +45,7 @@ abstract public class AbstractFile implements pm.entitymanager.logic.EntityInter
     {
         return parent;
     }    
-    protected String getName()
+    public String getName()
     {
         return name;
     }    
@@ -83,7 +83,7 @@ abstract public class AbstractFile implements pm.entitymanager.logic.EntityInter
     {
         this.name=name;
     }
-    protected String getAlias() {
+    public String getAlias() {
         return alias;
     }
     protected void setAlias(String alias) {
@@ -107,5 +107,5 @@ abstract public class AbstractFile implements pm.entitymanager.logic.EntityInter
     abstract protected boolean isFolderish();
     abstract protected String getCharNameOnly();
     abstract protected String getFullName();
-    abstract protected List<AbstractFile> getAllChildren() throws pm.entitymanager.logic.EntityNotFolderishException;    
+    abstract public List<AbstractFile> getAllChildren() throws pm.entitymanager.logic.EntityNotFolderishException;    
 }
