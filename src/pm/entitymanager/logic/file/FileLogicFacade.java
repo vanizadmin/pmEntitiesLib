@@ -46,7 +46,8 @@ public class FileLogicFacade  implements  LogicFacade{
 
     @Override
     public String getEntitySize(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(entity instanceof FileSystemsRoot) throw new UnsupportedOperationException("Not supported yet.");
+        if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || )
     }
 
     @Override
