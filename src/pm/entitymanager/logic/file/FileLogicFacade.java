@@ -7,10 +7,12 @@
 package pm.entitymanager.logic.file;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import pm.entitymanager.logic.EntityChangedListener;
 import pm.entitymanager.logic.EntityInterface;
 import pm.entitymanager.logic.LogicFacade;
@@ -24,6 +26,7 @@ public class FileLogicFacade  implements  LogicFacade{
     private static AbstractFile fileSystemsRoot;
     private static AbstractFile currentDir;
     private static String currentPath;
+    private static Path cPath;
     private static String fullPath;
     private static List<String> cFullPath; //Storing the full path that the user is currebtly in including the root folder
     public FileLogicFacade() throws IOException {
@@ -33,6 +36,7 @@ public class FileLogicFacade  implements  LogicFacade{
         fileSystemsRoot = new FileSystemsRoot();
         currentDir = fileSystemsRoot;
         currentPath = Paths.get(currentDir.getName()).toString();
+        cPath = Paths.get(currentDir.getName());
         fullPath = new String();
         System.out.println("CurrentPath: " + currentPath);
         System.out.println("CurrentPath alias: " + currentDir.getAlias());
@@ -43,11 +47,19 @@ public class FileLogicFacade  implements  LogicFacade{
     public EntityInterface getRootEntity() {
        return(fileSystemsRoot);
     }
-
+    private Boolean isEntityFolderish(EntityInterface entity) {
+         if(entity instanceof FileSystemsRoot) return(true);
+        else if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || (entity instanceof RootChild)) return(true);
+        else return (false);
+    }
     @Override
     public String getEntitySize(EntityInterface entity) {
-        if(entity instanceof FileSystemsRoot) throw new UnsupportedOperationException("Not supported yet.");
-        if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || )
+        if(entity instanceof FileSystemsRoot) return("");
+        else if(isFolderish(entity)) {
+            currentDir.setSize(Paths.get(currentDir.getName()));
+            return(Objects.toString(currentDir.getSize(), null));        
+        }        
+        else return("");       
     }
 
     @Override
@@ -110,9 +122,6 @@ public class FileLogicFacade  implements  LogicFacade{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setAccessible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
 }
