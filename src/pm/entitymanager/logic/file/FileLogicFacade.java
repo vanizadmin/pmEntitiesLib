@@ -11,10 +11,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pm.entitymanager.logic.EntityChangedListener;
 import pm.entitymanager.logic.EntityInterface;
+import pm.entitymanager.logic.EntityNotFolderishException;
 import pm.entitymanager.logic.LogicFacade;
 
 
@@ -47,7 +51,7 @@ public class FileLogicFacade  implements  LogicFacade{
     public EntityInterface getRootEntity() {
        return(fileSystemsRoot);
     }
-    private Boolean isEntityFolderish(EntityInterface entity) {
+    private boolean isValidEntity(EntityInterface entity) {
          if(entity instanceof FileSystemsRoot) return(true);
         else if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || (entity instanceof RootChild)) return(true);
         else return (false);
@@ -56,7 +60,7 @@ public class FileLogicFacade  implements  LogicFacade{
     public String getEntitySize(EntityInterface entity) {
         if(entity instanceof FileSystemsRoot) return("");
         else if(isFolderish(entity)) {
-            currentDir.setSize(Paths.get(currentDir.getName()));
+           // currentDir.setSize(Paths.get(currentDir.getName()));
             return(Objects.toString(currentDir.getSize(), null));        
         }        
         else return("");       
@@ -64,27 +68,37 @@ public class FileLogicFacade  implements  LogicFacade{
 
     @Override
     public String getEntityLastModified(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((!(entity instanceof FileSystemsRoot)) && isValidEntity(entity)) return (Objects.toString(currentDir.getLastModified(), null));
+         else return ("");        
     }
 
     @Override
     public boolean isEntityReadable(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((!(entity instanceof FileSystemsRoot)) || isValidEntity(entity)) return (currentDir.isReadable());
+         else return (true);   
     }
 
     @Override
     public boolean isEntityWriteable(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((!(entity instanceof FileSystemsRoot)) || isValidEntity(entity)) return (currentDir.isWritable());
+         else return (true);  
     }
 
     @Override
-    public boolean isFolderish(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isFolderish(EntityInterface entity) {              
+        if((entity instanceof FileSystemsRoot) || (entity instanceof DirectoryFile) || (entity instanceof RootChild)) return(true);
+        else return (false);
     }
 
     @Override
     public Collection getAllChildren(EntityInterface entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<AbstractFile> contents = Collections.EMPTY_LIST;
+        if(isFolderish(entity)) try {
+            contents = currentDir.getAllChildren();            
+        } catch (EntityNotFolderishException ex) {
+            Logger.getLogger(FileLogicFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return(contents);
     }
 
     @Override
