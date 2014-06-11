@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 
-package pm.entitymanager.logic;
+package pm.entitymanager.logic.file;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import pm.entitymanager.logic.file.*;
+import pm.entitymanager.logic.EntityChangedListener;
+import pm.entitymanager.logic.EntityInterface;
+import pm.entitymanager.logic.LogicFacade;
 
 
 /**
@@ -39,7 +41,7 @@ public class FileLogicFacade  implements  LogicFacade{
 
     
     public EntityInterface getRootEntity() {
-       return(currentDir);
+       return(fileSystemsRoot);
     }
 
     @Override

@@ -6,6 +6,7 @@
 
 package pm.entitymanager.logic;
 
+import pm.entitymanager.logic.file.FileLogicFacade;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
