@@ -51,6 +51,16 @@ public class FileLogicFacade  implements  LogicFacade{
     public EntityInterface getRootEntity() {
        return(fileSystemsRoot);
     }
+    public String getEntityName(EntityInterface entity) {
+        if(isValidEntity(entity)) {
+            if(entity instanceof FileSystemsRoot) return(currentDir.getAlias());
+            else if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || (entity instanceof RootChild)) return (currentDir.getName());
+            
+            }
+        return ("");
+    }
+    
+    
     private boolean isValidEntity(EntityInterface entity) {
          if(entity instanceof FileSystemsRoot) return(true);
         else if((entity instanceof DirectoryFile) || (entity instanceof RegularFile) || (entity instanceof RootChild)) return(true);
